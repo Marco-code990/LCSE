@@ -26,7 +26,7 @@ public:
 
 class LCSE
 {    private:
-    Nodo *Inicio;
+    Nodo *Inicio,*Fin;
 public:
     void InsertarI(int);
     void InsertarF(int);
@@ -51,7 +51,51 @@ void LCSE::InsertarI(int x)
     
     if(!Inicio)
 }
-
+void LCSE::InsertarF(int x)
+{
+	Nodo *aux=new Nodo(x);
+	if(!Inicio)
+	{
+		Inicio=Fin=aux;
+		Fin->Obtienesig()=Inicio;
+	}
+	else
+	{
+		Nodo *help=Inicio;
+		while(help->Obtienesig()!=NULL)
+		{
+			help=help->Obtienesig();
+		}
+		Nodo *helpx2=new Nodo(x);
+		help->Asignasig(helpx2);
+		Fin->Obtienesig()=aux;
+		Fin=aux;
+		aux->Obtienesig()=Inicio;
+	}
+}
+void LCSE::BorrarI()
+{
+	if(!Inicio)
+	{
+		cout<<"Lista vacia."<<endl;
+	}
+	else
+	{
+		if(Inicio==Fin)
+		{
+			Inicio=Fin=NULL;
+			cout<<"Dato eliminado.";
+		}
+		else
+		{
+			Nodo *hay=Inicio;
+			Inicio=Inicio->Obtienesig();
+			Fin->Obtienesig()=Inicio;
+			delete *hay;
+			cout<<"Dato eliminado."<<endl;
+		}
+	}
+}
 void Nodo::Asignasig(Nodo *x)
 {
     this->sig=x;
